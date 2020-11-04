@@ -11,7 +11,7 @@
     cd ansible-example
     ```
 
-1. Start a Vagrant machine for `site1` in the `dev` environment:
+1. Start the `srv1.site1.egfast.com` Vagrant machine for `site1` in the `dev` environment:
 
 
     ```
@@ -25,16 +25,25 @@
 
 
     ```
-    ansible -i dev.ini -m ping
+    ansible -i dev.ini site1 -m ping
     ```
 
-    This command uses the following options:
+    This command uses the following options and argument:
 
-    * `-i` - the Ansible inventory. The development, quality assurance, and production environments are organized and isolated into the separate files.
-    * `-m` - the Ansible module to execute. This command executs the Ansible [Ping module](https://docs.ansible.com/ansible/2.3/ping_module.html). It's not an ICMP ping. This is just to check if Ansible is working.
+    * `-i` - Ansible inventory. The development, quality assurance, and production environments are organized and isolated into the separate files.
+    * `site1` - Pattern for the site to target.
+    * `-m` - Ansible module to execute. This command executs the Ansible [Ping module](https://docs.ansible.com/ansible/2.3/ping_module.html). It's not an ICMP ping. This is just to check if Ansible is working.
 
 1. Run an Ansible playbook:
 
     ```
-    ansible-playbook -i dev.ini playbooks/ping.yml
+    ansible-playbook -i dev.ini -l site1 playbooks/ping.yml
+    ```
+
+    Gotcha: The `ansible-playbook` command uses the same pattern as the `ansible` command but uses the `-l` flag.
+
+1. Destroy the `srv1.site1.egfast.com` Vagrant machine:
+
+    ```
+    vagrant destroy -f /site1/
     ```
