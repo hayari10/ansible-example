@@ -2,11 +2,8 @@ vms = [
     { "name" => "srv1.site1.egfast.com", "ip" => "192.168.33.11" },
 
     { "name" => "srv1.site2.egfast.com", "ip" => "192.168.33.21" },
-    { "name" => "srv2.site2.egfast.com", "ip" => "192.168.33.22" },
 
     { "name" => "srv1.site3.egfast.com", "ip" => "192.168.33.31" },
-    { "name" => "srv2.site3.egfast.com", "ip" => "192.168.33.32" },
-    { "name" => "srv3.site3.egfast.com", "ip" => "192.168.33.33" },
 ]
 
 Vagrant.configure("2") do |config|
