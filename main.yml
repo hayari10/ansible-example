@@ -1,0 +1,6 @@
+# The main.yml playbook imports all playbooks and handles order dependencies.
+---
+- import_playbook: playbooks/ping.yml
+- import_playbook: playbooks/apt.yml
+- import_playbook: playbooks/docker.yml
+- import_playbook: playbooks/app.yml

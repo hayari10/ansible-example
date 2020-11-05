@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Create installation directory
+      file:
+        path: /opt/egfast
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create environment-specific file to serve
+      copy:
+        dest: /opt/egfast/index.html
+        owner: root
+        group: root
+        mode: 0644
+        content: |
+          <h1>This is an environment-specific file</h1>
+          <p>This app is running in the {{ egfast_environment }} environment</p>
+
+    - name: Create and start nginx container
+      docker_container:
+        name: app
+        image: library/nginx:1.19
+        volumes:
+          /opt/egfast/index.html:/usr/share/nginx/html/index.html
+        published_ports:
+          - 8080:80
+        state: started
+        restart_policy: always
